@@ -9,6 +9,11 @@ import (
 	_ "github.com/jinzhu/gorm/dialects/mysql"
 )
 
+var (
+	OmsMysql *gorm.DB
+	HdMysql  *gorm.DB
+)
+
 type MysqlCfg struct {
 	Host     string `json:"host"`
 	Port     int    `json:"port"`
@@ -46,4 +51,12 @@ func (c *MysqlCfg) NewMysql() *gorm.DB {
 	db.SingularTable(true)
 	db.Set("gorm:table_options", "ENGINE=InnoDB")
 	return db
+}
+
+func InitOmsMysql() {
+	OmsMysql = DefaultConfig.Mysql.OMS.NewMysql()
+}
+
+func InitHdMysql() {
+	HdMysql = DefaultConfig.Mysql.OMS.NewMysql()
 }

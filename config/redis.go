@@ -7,6 +7,8 @@ import (
 	"github.com/go-redis/redis/v7"
 )
 
+var CommonRedis *redis.Client
+
 type RedisCfg struct {
 	Host              string        `json:"host"`
 	Port              int           `json:"port"`
@@ -35,4 +37,8 @@ func (c RedisCfg) NewRedis() *redis.Client {
 	})
 
 	return conn
+}
+
+func InitCommonRedis() {
+	CommonRedis = DefaultConfig.Redis.Common.NewRedis()
 }
