@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 
+	"github.com/fsnotify/fsnotify"
 	"github.com/spf13/viper"
 )
 
@@ -41,7 +42,7 @@ func (config *ConfigBuild) Get(key string) interface{} {
 	return config.Viper.Get(key)
 }
 
-func (config *UluConfigBuild) Watch() {
+func (config *ConfigBuild) Watch() {
 	config.Viper.WatchConfig()
 	config.Viper.OnConfigChange(func(e fsnotify.Event) {
 		fmt.Println("Config file changed:", e.Name)
